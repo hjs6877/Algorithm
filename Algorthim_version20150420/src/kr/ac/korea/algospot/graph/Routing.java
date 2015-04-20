@@ -33,7 +33,7 @@ public class Routing {
 			Routing.createGraph(Integer.parseInt(veInfos[0]), Integer.parseInt(veInfos[1]));
 			
 			/**
-			 * 다익스트라 알고리즘을 통한 최소 노이즈 경로의 노이즈 값 출력.
+			 * 다익스트라 알고리즘을 통한 최소 노이즈 경로의 노이즈 값 출력....
 			 */
 		}
 		
