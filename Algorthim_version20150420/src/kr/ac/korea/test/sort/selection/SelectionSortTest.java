@@ -9,7 +9,7 @@ import kr.ac.korea.sort.selection.SelectionSort1;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class SelectionSort1Test {
+public class SelectionSortTest {
 	private static SelectionSort1 obj;
 	private static int[] num = {2, 5, 1, 10, 9, 3, 8, 6, 7, 4};
 	private static int[] B = new int[num.length];
