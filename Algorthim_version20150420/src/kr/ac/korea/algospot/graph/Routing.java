@@ -35,6 +35,7 @@ public class Routing {
 			/**
 			 * 다익스트라 알고리즘을 통한 최소 노이즈 경로의 노이즈 값 출력....
 			 */
+			System.out.println("시작정점 0에 부수된 정점 개수: " + graphMap.get(0).size());
 		}
 		
 		
@@ -94,8 +95,12 @@ public class Routing {
 						
 						weightList.add(weight);
 						endVMap.put(endV, weightList);
+						
+						endVList.add(endVMap);
 						System.out.println(startV + "(기존 시작정점)" + " -> " + endV + "(새로운 끝 정점)" + "에 가중치 추가");
 					}
+					
+					
 				}else{
 					endVList = new ArrayList<Map<Integer, List<Double>>>();
 					endVMap = new HashMap<Integer, List<Double>>();
