@@ -8,7 +8,13 @@ public class InsertionSort1 {
 	}
 	
 	public void sort(){
-		
+		for(int i=0; i<num.length; i++){
+			for(int j=i; j > 0 && num[j] < num[j-1]; j--){
+				int temp = num[j];
+				num[j] = num[j-1];
+				num[j-1] = temp;
+			}
+		}
 	}
 	
 	public int[] getNum(){
