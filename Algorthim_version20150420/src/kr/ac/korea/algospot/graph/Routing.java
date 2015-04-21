@@ -36,6 +36,7 @@ public class Routing {
 			 * 다익스트라 알고리즘을 통한 최소 노이즈 경로의 노이즈 값 출력....
 			 */
 			System.out.println("시작정점 0에 부수된 정점 개수: " + graphMap.get(0).size());
+			System.out.println("시작정점 0에 부수된 정점 목록: " + graphMap.get(0));
 		}
 		
 		
