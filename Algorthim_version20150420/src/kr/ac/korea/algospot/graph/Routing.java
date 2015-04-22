@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.PriorityQueue;
 import java.util.Scanner;
 
 public class Routing {
@@ -37,6 +38,16 @@ public class Routing {
 			 */
 			System.out.println("시작정점 0에 부수된 정점 개수: " + graphMap.get(0).size());
 			System.out.println("시작정점 0에 부수된 정점 목록: " + graphMap.get(0));
+			
+			// 시작정점에서 해당 정점까지의 가장 짧은 거리가 저장 된 배열.
+			int[] dist = new int[Integer.parseInt(veInfos[0])];
+			
+			PriorityQueue<Vertex> pq = new PriorityQueue<Vertex>();
+			Vertex v = new Routing.Vertex(0, 0.00);
+			
+			pq.add(v);
+			
+			
 		}
 		
 		
@@ -124,5 +135,39 @@ public class Routing {
 	
 	public static boolean isValidVertex(int vertexCount, int vertex){
 		return ((vertex >-1) && (vertex < vertexCount));
+	}
+	
+	
+	/**
+	 * 정점 클래스
+	 * 
+	 * @author hjs6877
+	 *
+	 */
+	public static class Vertex implements Comparable<Vertex>{
+		private double cost;
+		private int vertexNo; 
+		
+		public Vertex(int vertexNo, double cost) {
+			super();
+			this.vertexNo = vertexNo;
+			this.cost = cost;
+		}
+		
+		@Override
+		public int compareTo(Vertex o) {
+			
+			return this.cost <= o.cost ? -1 : 1;
+		}
+
+		public double getCost() {
+			return cost;
+		}
+
+		public int getVertexNo() {
+			return vertexNo;
+		}
+		
+		
 	}
 }
