@@ -4,22 +4,49 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Scanner;
 
+/**
+ * ====== 그래프 생성 프로세스 ====
+ * graphMap(출발정점, 도착정점의 목록 List<Map<도착정점, 가중치 List<가중치>>>);
+ * 1.맵에 저장된 출발정점이 존재하는지 확인.
+ * 		1-1. 존재한다면, 출발정점을 키로 도착정점의 목록을 가져온다.
+ * 			1-1-1. 목록을 루프 돌면서 도착 정점이 존재하는지 확인.
+ * 				1-1-1-1. 도착 정점이 존재한다면 도착 정점을 키로 가중치 List를 가져온 후, 목록에 가중치를 추가한다.
+ * 			1-1-2. 도착 정점이 존재하지 않는다면 도착 정점을 키로하고 가중치 List를 생성해서 가중치를 추가한다.
+ * 		1-2. 존재하지 않는다면, 
+ * 			1-2-1. 출발정점을 키로, 도착정점의 List를 생성하고, 도착 정점의 Map을 생성하여 가중치 List를 생성 한 후, 가중치를 추가한다.
+ * 
+ * 
+ * ===== 다익스트라 알고리즘 프로세스 ====
+ * 1. 우선 순위 큐와 dist[]을 초기화한다.
+ * 2. 우선 순위큐에 시작 정점 0을 추가한다.
+ * 3. while(큐가 비어있지 않은 동안){
+ * 		int cost = queue.top.key;               // 해당 정점까지의 최단거리.
+ * 		int selectedV = queue.top.value.
+ *     
+ *     // 꺼낸것보다 더 짧은 경로를 이미 알고 있다면 꺼낸 정점을 무시한다.
+ *     if(dist[selectedV] < cost) continue;
+ *     
+ *     for(꺼낸 정점의 인접한 정점을 모두 검사){
+ *     		int V(연결된 정점 번호) = xxxxxxx;
+ *     		int D(연결된 정점까지의 거리) = cost + 연결된 정점까지의 간선 가중치
+ *     
+ *     		// 더 짧은 경로를 발견하면, dis[]를 갱신하고 우선순위 큐에 넣는다.
+ *     		if(dist[V] > D){
+ *     			dist[V] = D;
+ *        
+ *     			queue.push(V);
+ *     		}
+ *     }
+ * }
+ */
 public class Routing {
-	/**
-	 * graphMap(출발정점, 도착정점의 목록 List<Map<도착정점, 가중치 List<가중치>>>);
-	 * 1.맵에 저장된 출발정점이 존재하는지 확인.
-	 * 		1-1. 존재한다면, 출발정점을 키로 도착정점의 목록을 가져온다.
-	 * 			1-1-1. 목록을 루프 돌면서 도착 정점이 존재하는지 확인.
-	 * 				1-1-1-1. 도착 정점이 존재한다면 도착 정점을 키로 가중치 List를 가져온 후, 목록에 가중치를 추가한다.
-	 * 			1-1-2. 도착 정점이 존재하지 않는다면 도착 정점을 키로하고 가중치 List를 생성해서 가중치를 추가한다.
-	 * 		1-2. 존재하지 않는다면, 
-	 * 			1-2-1. 출발정점을 키로, 도착정점의 List를 생성하고, 도착 정점의 Map을 생성하여 가중치 List를 생성 한 후, 가중치를 추가한다.
-	 */
+	
 	public static Map<Integer, List<Map<Integer, List<Double>>>> graphMap;
 	
 	public static void main(String[] args){
@@ -31,6 +58,9 @@ public class Routing {
 			String vertexEdge = scanner2.nextLine();
 			String[] veInfos = vertexEdge.split("\\s+");
 			
+			/**
+			 * 그래프 생성.
+			 */
 			Routing.createGraph(Integer.parseInt(veInfos[0]), Integer.parseInt(veInfos[1]));
 			
 			/**
@@ -40,14 +70,31 @@ public class Routing {
 			System.out.println("시작정점 0에 부수된 정점 목록: " + graphMap.get(0));
 			
 			// 시작정점에서 해당 정점까지의 가장 짧은 거리가 저장 된 배열.
-			int[] dist = new int[Integer.parseInt(veInfos[0])];
+			double[] dist = new double[Integer.parseInt(veInfos[0])];
 			
 			PriorityQueue<Vertex> pq = new PriorityQueue<Vertex>();
 			Vertex v = new Routing.Vertex(0, 0.00);
 			
+			/**
+			 * 시작 정점을 0으로 지정하고, 큐에 추가한다.
+			 */
 			pq.add(v);
 			
-			
+			while(!pq.isEmpty()){
+				Vertex topV = pq.poll();
+				int no = topV.getVertexNo();
+				double cost = topV.getCost();
+				
+				// 꺼낸 정점 보다 더 짧은 경로를 이미 알고 있다면 꺼낸 정점은 무시한다.
+				if(dist[no] < cost){
+					continue;
+				}
+				
+				List<Map<Integer, List<Double>>> adjVList = graphMap.get(no);
+				for(Map<Integer, List<Double>> adjVMap : adjVList){
+					Iterator<Integer> keyIter = adjVMap.keySet().iterator();
+				}
+			}
 		}
 		
 		
