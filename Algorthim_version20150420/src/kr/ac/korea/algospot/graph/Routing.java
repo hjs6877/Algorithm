@@ -77,12 +77,18 @@ public class Routing {
 			// 시작정점에서 해당 정점까지의 가장 짧은 거리가 저장 된 배열.
 			double[] dist = new double[Integer.parseInt(veInfos[0])];
 			
+			// dist 배열의 원소를 무한대 값으로 초기화.
+			for(int j=0; j < dist.length; j++){
+				dist[j] = Double.MAX_VALUE;
+			}
+			
 			PriorityQueue<Vertex> pq = new PriorityQueue<Vertex>();
 			Vertex v = new Routing.Vertex(0, 0.00);
 			
 			/**
 			 * 시작 정점을 0으로 지정하고, 큐에 추가한다.
 			 */
+			dist[0] = 0.0;
 			pq.add(v);
 			
 			while(!pq.isEmpty()){
@@ -96,23 +102,28 @@ public class Routing {
 				}
 				
 				List<Map<String, Object>> adjVList = graphMap.get(no);
-				for(Map<String, Object> adjVMap : adjVList){
-					int adjVNo = (int) adjVMap.get("no");
-					List<Double> adjVWeightList = (List<Double>) adjVMap.get("weightList");
-					System.out.print(no + "에 인접한 정점: [" + adjVNo + ":  " + adjVWeightList + "], ");
-					
-					// 연결된 정점에 다중 간선이 존재할 수 있음.
-					for(int j=0; j < adjVWeightList.size(); j++){
-						double adjVCost = cost + adjVWeightList.get(j);
-						// 더 짧은 경로를 발견하면, dist[ ]를 갱신하고 우선순위 큐에 넣는다.
-						if(dist[adjVNo] > adjVCost){
-							dist[adjVNo] = adjVCost;
-							Vertex vertex = new Vertex(adjVNo, adjVCost);
-							pq.add(vertex);														// 큐 내부적으로 거리가 작은놈이 우선 순위가 높으므로 먼저 나옴.
+				if(adjVList != null){
+					System.out.print(no + "에 인접한 정점: ");
+					for(Map<String, Object> adjVMap : adjVList){
+						int adjVNo = (int) adjVMap.get("no");
+						List<Double> adjVWeightList = (List<Double>) adjVMap.get("weightList");
+						System.out.print("[" + adjVNo + ":  " + adjVWeightList + "], ");
+						
+						// 연결된 정점에 다중 간선이 존재할 수 있음.
+						for(int j=0; j < adjVWeightList.size(); j++){
+							double adjVCost = cost + adjVWeightList.get(j);
+							// 더 짧은 경로를 발견하면, dist[ ]를 갱신하고 우선순위 큐에 넣는다.
+							if(dist[adjVNo] > adjVCost){
+								dist[adjVNo] = adjVCost;
+								Vertex vertex = new Vertex(adjVNo, adjVCost);
+								pq.add(vertex);														// 큐 내부적으로 거리가 작은놈이 우선 순위가 높으므로 먼저 나옴.
+							}
 						}
 					}
 				}
 			}
+			System.out.println("\n");
+			System.out.println(0 + "에서 " + (dist.length-1) + "까지의 최단거리: " + dist[dist.length-1]);
 		}
 		
 		
