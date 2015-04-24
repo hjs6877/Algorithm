@@ -45,6 +45,12 @@ import java.util.Scanner;
  *     		}
  *     }
  * }
+ * 
+ * 
+ * 
+ * ==== 문제가 되었던 부분 ====
+ * 1. 정점까지의 최단거리를 저장하는 dist[] 배열에 '무한대'에해당하는 초기값을 넣어주지 않아서 알고리즘 수행 시, 정상적이 계산을 하지 못했음.
+ * 2. 정점간의 단일 간선이 아닌 다중 간선이 존재하는 부분으로 인해 링크드 리스트를 사용하지 않고, 맵으로 구현한 부분에서 시간 지체.
  */
 public class Routing {
 	public static Map<Integer, List<Map<String, Object>>> graphMap;
