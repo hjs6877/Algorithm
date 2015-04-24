@@ -2,6 +2,7 @@ package kr.ac.korea.algospot.graph;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -46,9 +47,6 @@ import java.util.Scanner;
  * }
  */
 public class Routing {
-	/**
-	 * ############# 가중치에 log 씌우는 작업부터 해야됨. ##################
-	 */
 	public static Map<Integer, List<Map<String, Object>>> graphMap;
 	
 	@SuppressWarnings("unchecked")
@@ -123,7 +121,13 @@ public class Routing {
 				}
 			}
 			System.out.println("\n");
-			System.out.println(0 + "에서 " + (dist.length-1) + "까지의 최단거리: " + dist[dist.length-1]);
+			//System.out.println(0 + "에서 " + (dist.length-1) + "까지의 최단거리: " + dist[dist.length-1]);
+//			DecimalFormat format = new DecimalFormat("#.##########");
+//			String str = format.format(dist[dist.length-1]);
+//			System.out.println(str);
+			
+			String str = String.format("%.10f", dist[dist.length-1]);
+			System.out.println(str);
 		}
 		
 		
@@ -157,7 +161,11 @@ public class Routing {
 			
 			int startV = Integer.parseInt(infos[0]);
 			int endV = Integer.parseInt(infos[1]);
-			double weight = Double.parseDouble(infos[2]);
+			
+			/**
+			 * 로그를 취하여 노이즈 증폭에 대한 가중치 곱을 덧셈을 이용할 수 있도록 해준다.
+			 */
+			double weight = Math.log(Double.parseDouble(infos[2]));
 			
 			if(Routing.isValidVertex(vCount, startV) && Routing.isValidVertex(vCount, endV)){
 				List<Map<String, Object>> endVList = null;
