@@ -1,11 +1,7 @@
 package kr.ac.korea.algospot.graph;
 
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
@@ -53,14 +49,23 @@ import java.util.Scanner;
  * 2. 정점간의 단일 간선이 아닌 다중 간선이 존재하는 부분으로 인해 링크드 리스트를 사용하지 않고, 맵으로 구현한 부분에서 시간 지체.
  */
 public class Routing {
-	public static Map<Integer, List<Map<String, Object>>> graphMap;
+	public static Map<Integer, List<Map<String, Object>>> graphMap = null;
+	public static List<Map<String, Object>> endVList = null;
+	public static Map<String, Object> endVMap = null;
+	public static List<Double> weightList = null;
+	public static double weight = 0;
 	
 	@SuppressWarnings("unchecked")
 	public static void main(String[] args){
-		graphMap = new HashMap<Integer, List<Map<String, Object>>>();
 		Scanner scanner1 = new Scanner(System.in);
 		int executeCount = scanner1.nextInt();
 		for(int i=0; i<executeCount; i++){
+			graphMap = new HashMap<Integer, List<Map<String, Object>>>();
+			endVList = null;
+			endVMap = null;
+			weightList = null;
+			weight = 0;
+			
 			Scanner scanner2 = new Scanner(System.in);
 			String vertexEdge = scanner2.nextLine();
 			String[] veInfos = vertexEdge.split("\\s+");
@@ -168,63 +173,11 @@ public class Routing {
 			int startV = Integer.parseInt(infos[0]);
 			int endV = Integer.parseInt(infos[1]);
 			
-			double weight = Double.parseDouble(infos[2]);			
+			weight = Double.parseDouble(infos[2]);			
 			
 			if(Routing.isValidVertex(vCount, startV) && Routing.isValidVertex(vCount, endV)){
-				List<Map<String, Object>> endVList = null;
-				Map<String, Object> endVMap = null;
-				List<Double> weightList = null;
-				
-				/**
-				 * 그래프 생성.
-				 * 시작 정점이 존재 할 때와 존재하지 않을 때로 구분해서 처리.
-				 */
-				if(graphMap.containsKey(startV)){
-					endVList = graphMap.get(startV);
-					boolean isExistEndV = false;
-					
-					for(Map<String, Object> map : endVList){
-						/**
-						 * - 끝 정점이 존재한다면 해당 정점의 가중치 리스트를 가져와서 가중치 추가.
-						 */
-						if((Integer)map.get("no") == endV){
-							isExistEndV = true;
-							weightList = (List<Double>) map.get("weightList");
-							weightList.add(weight);
-//							System.out.println(startV + "(기존 시작정점)" + " -> " + (Integer)map.get("no") + "(기존 끝정점)" + "에 가중치 추가");
-							break;
-						}
-					}
-					
-					/**
-					 * - 끝 정점이 존재하지 않는다면 끝 정점 생성, 끝 정점에 간선 가중치 값 추가한 후, 끝 정점 추가.
-					 */
-					if(!isExistEndV){
-						endVMap = new HashMap<String, Object>();
-						weightList = new ArrayList<Double>();
-						
-						weightList.add(weight);
-						endVMap.put("no", endV);
-						endVMap.put("weightList", weightList);
-						
-						endVList.add(endVMap);
-//						System.out.println(startV + "(기존 시작정점)" + " -> " + endV + "(새로운 끝 정점)" + "에 가중치 추가");
-					}
-					
-					
-				}else{
-					endVList = new ArrayList<Map<String, Object>>();
-					endVMap = new HashMap<String, Object>();
-					weightList = new ArrayList<Double>();
-					
-					weightList.add(weight);
-					endVMap.put("no", endV);
-					endVMap.put("weightList", weightList);
-					endVList.add(endVMap);
-					 
-					graphMap.put(startV, endVList);
-//					System.out.println(startV + "(새로운 시작정점)" + " -> " + endV + "(새로운 끝 정점)" + "에 가중치 추가");
-				}
+				Routing.addVertexToGraphMap(startV, endV);
+				Routing.addVertexToGraphMap(endV, startV);
 			}else{
 				System.out.println("유효하지 않은 정점입니다.");
 				scanner.close();
@@ -233,10 +186,71 @@ public class Routing {
 		}
 	}
 	
+	/**
+	 * 유효한 정점인지 체크.
+	 * 
+	 * @param vertexCount
+	 * @param vertex
+	 * @return
+	 */
 	public static boolean isValidVertex(int vertexCount, int vertex){
 		return ((vertex >-1) && (vertex < vertexCount));
 	}
 	
+	public static void addVertexToGraphMap(int startV, int endV){
+		/**
+		 * 그래프 생성.
+		 * 시작 정점이 존재 할 때와 존재하지 않을 때로 구분해서 처리.
+		 */
+		if(graphMap.containsKey(startV)){
+			endVList = graphMap.get(startV);
+			boolean isExistEndV = false;
+			
+			for(Map<String, Object> map : endVList){
+				/**
+				 * - 끝 정점이 존재한다면 해당 정점의 가중치 리스트를 가져와서 가중치 추가.
+				 */
+				if((Integer)map.get("no") == endV){
+					isExistEndV = true;
+					weightList = (List<Double>) map.get("weightList");
+					weightList.add(weight);
+//					System.out.println(startV + "(기존 시작정점)" + " -> " + (Integer)map.get("no") + "(기존 끝정점)" + "에 가중치 추가");
+					break;
+				}
+			}
+			
+			/**
+			 * - 끝 정점이 존재하지 않는다면 끝 정점 생성, 끝 정점에 간선 가중치 값 추가한 후, 끝 정점 추가.
+			 */
+			if(!isExistEndV){
+				endVMap = new HashMap<String, Object>();
+				weightList = new ArrayList<Double>();
+				
+				weightList.add(weight);
+				endVMap.put("no", endV);
+				endVMap.put("weightList", weightList);
+				
+				endVList.add(endVMap);
+//				System.out.println(startV + "(기존 시작정점)" + " -> " + endV + "(새로운 끝 정점)" + "에 가중치 추가");
+			}
+			
+			
+		}else{
+			endVList = new ArrayList<Map<String, Object>>();
+			endVMap = new HashMap<String, Object>();
+			weightList = new ArrayList<Double>();
+			
+			weightList.add(weight);
+			endVMap.put("no", endV);
+			endVMap.put("weightList", weightList);
+			endVList.add(endVMap);
+			 
+			graphMap.put(startV, endVList);
+//			System.out.println(startV + "(새로운 시작정점)" + " -> " + endV + "(새로운 끝 정점)" + "에 가중치 추가");
+		}
+	}
+		
+		
 	
 	/**
 	 * 정점 클래스
