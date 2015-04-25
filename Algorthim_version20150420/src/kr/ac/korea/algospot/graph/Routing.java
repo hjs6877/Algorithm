@@ -73,10 +73,10 @@ public class Routing {
 			/**
 			 * 다익스트라 알고리즘을 통한 최소 노이즈 경로의 노이즈 값 출력....
 			 */
-			System.out.println();
-			System.out.println("시작정점 0에 부수된 정점 개수: " + graphMap.get(0).size());
-			System.out.println("시작정점 0에 부수된 정점 목록: " + graphMap.get(0));
-			System.out.println();
+//			System.out.println();
+//			System.out.println("시작정점 0에 부수된 정점 개수: " + graphMap.get(0).size());
+//			System.out.println("시작정점 0에 부수된 정점 목록: " + graphMap.get(0));
+//			System.out.println();
 			
 			// 시작정점에서 해당 정점까지의 가장 짧은 거리가 저장 된 배열.
 			double[] dist = new double[Integer.parseInt(veInfos[0])];
@@ -87,12 +87,12 @@ public class Routing {
 			}
 			
 			PriorityQueue<Vertex> pq = new PriorityQueue<Vertex>();
-			Vertex v = new Routing.Vertex(0, 0.00);
+			Vertex v = new Routing.Vertex(0, 1.0);
 			
 			/**
 			 * 시작 정점을 0으로 지정하고, 큐에 추가한다.
 			 */
-			dist[0] = 0.0;
+			dist[0] = 1.0;
 			pq.add(v);
 			
 			while(!pq.isEmpty()){
@@ -107,15 +107,15 @@ public class Routing {
 				
 				List<Map<String, Object>> adjVList = graphMap.get(no);
 				if(adjVList != null){
-					System.out.print(no + "에 인접한 정점: ");
+//					System.out.print(no + "에 인접한 정점: ");
 					for(Map<String, Object> adjVMap : adjVList){
 						int adjVNo = (int) adjVMap.get("no");
 						List<Double> adjVWeightList = (List<Double>) adjVMap.get("weightList");
-						System.out.print("[" + adjVNo + ":  " + adjVWeightList + "], ");
+//						System.out.print("[" + adjVNo + ":  " + adjVWeightList + "], ");
 						
 						// 연결된 정점에 다중 간선이 존재할 수 있음.
 						for(int j=0; j < adjVWeightList.size(); j++){
-							double adjVCost = cost + adjVWeightList.get(j);
+							double adjVCost = cost * adjVWeightList.get(j);
 							// 더 짧은 경로를 발견하면, dist[ ]를 갱신하고 우선순위 큐에 넣는다.
 							if(dist[adjVNo] > adjVCost){
 								dist[adjVNo] = adjVCost;
@@ -126,7 +126,7 @@ public class Routing {
 					}
 				}
 			}
-			System.out.println("\n");
+//			System.out.println("\n");
 			//System.out.println(0 + "에서 " + (dist.length-1) + "까지의 최단거리: " + dist[dist.length-1]);
 //			DecimalFormat format = new DecimalFormat("#.##########");
 //			String str = format.format(dist[dist.length-1]);
@@ -168,10 +168,7 @@ public class Routing {
 			int startV = Integer.parseInt(infos[0]);
 			int endV = Integer.parseInt(infos[1]);
 			
-			/**
-			 * 로그를 취하여 노이즈 증폭에 대한 가중치 곱을 덧셈을 이용할 수 있도록 해준다.
-			 */
-			double weight = Math.log(Double.parseDouble(infos[2]));
+			double weight = Double.parseDouble(infos[2]);			
 			
 			if(Routing.isValidVertex(vCount, startV) && Routing.isValidVertex(vCount, endV)){
 				List<Map<String, Object>> endVList = null;
@@ -194,7 +191,7 @@ public class Routing {
 							isExistEndV = true;
 							weightList = (List<Double>) map.get("weightList");
 							weightList.add(weight);
-							System.out.println(startV + "(기존 시작정점)" + " -> " + (Integer)map.get("no") + "(기존 끝정점)" + "에 가중치 추가");
+//							System.out.println(startV + "(기존 시작정점)" + " -> " + (Integer)map.get("no") + "(기존 끝정점)" + "에 가중치 추가");
 							break;
 						}
 					}
@@ -211,7 +208,7 @@ public class Routing {
 						endVMap.put("weightList", weightList);
 						
 						endVList.add(endVMap);
-						System.out.println(startV + "(기존 시작정점)" + " -> " + endV + "(새로운 끝 정점)" + "에 가중치 추가");
+//						System.out.println(startV + "(기존 시작정점)" + " -> " + endV + "(새로운 끝 정점)" + "에 가중치 추가");
 					}
 					
 					
@@ -226,7 +223,7 @@ public class Routing {
 					endVList.add(endVMap);
 					 
 					graphMap.put(startV, endVList);
-					System.out.println(startV + "(새로운 시작정점)" + " -> " + endV + "(새로운 끝 정점)" + "에 가중치 추가");
+//					System.out.println(startV + "(새로운 시작정점)" + " -> " + endV + "(새로운 끝 정점)" + "에 가중치 추가");
 				}
 			}else{
 				System.out.println("유효하지 않은 정점입니다.");
