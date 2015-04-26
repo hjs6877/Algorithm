@@ -175,6 +175,10 @@ public class Routing {
 			
 			weight = Double.parseDouble(infos[2]);			
 			
+			/**
+			 * 핵심 포인트: 모든 회선이 양방향으로 데이터를 전송할 수 있으므로, 
+			 * 시작 정점과 끝정점의 위치를 바꾸어서 가중치를 추가해준다.
+			 */
 			if(Routing.isValidVertex(vCount, startV) && Routing.isValidVertex(vCount, endV)){
 				Routing.addVertexToGraphMap(startV, endV);
 				Routing.addVertexToGraphMap(endV, startV);
