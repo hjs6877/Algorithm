@@ -1,4 +1,4 @@
-package kr.ac.korea.algospot.graph;
+package kr.ac.korea.algospot.graph.routing;
 
 
 public class Vertex implements Comparable<Vertex>{

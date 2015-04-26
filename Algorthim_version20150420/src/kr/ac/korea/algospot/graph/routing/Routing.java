@@ -1,4 +1,4 @@
-package kr.ac.korea.algospot.graph;
+package kr.ac.korea.algospot.graph.routing;
 
 import java.util.ArrayList;
 import java.util.HashMap;
