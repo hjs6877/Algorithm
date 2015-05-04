@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import java.util.PriorityQueue;
 
-import kr.ac.korea.algospot.graph.Vertex;
+import kr.ac.korea.algospot.graph.routing.Vertex;
 
 import org.junit.Test;
 
