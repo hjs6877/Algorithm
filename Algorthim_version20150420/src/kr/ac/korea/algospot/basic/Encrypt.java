@@ -26,7 +26,7 @@ public class Encrypt {
 					}
 				}
 				
-				System.out.println();
+				System.out.println(sb.toString());
 			}
 			
 		}
