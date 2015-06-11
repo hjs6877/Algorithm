@@ -1,4 +1,4 @@
-package kr.ac.korea.test.graph;
+package kr.ac.korea.test.algorithm.graph;
 
 import static org.junit.Assert.*;
 

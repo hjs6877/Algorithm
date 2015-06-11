@@ -1,4 +1,4 @@
-package kr.ac.korea.test.sort.insertion;
+package kr.ac.korea.test.algorithm.sort.insertion;
 
 import static org.junit.Assert.*;
 

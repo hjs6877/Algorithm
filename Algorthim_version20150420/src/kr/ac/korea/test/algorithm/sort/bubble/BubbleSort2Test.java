@@ -1,4 +1,4 @@
-package kr.ac.korea.test.sort.bubble;
+package kr.ac.korea.test.algorithm.sort.bubble;
 
 import java.util.Arrays;
 

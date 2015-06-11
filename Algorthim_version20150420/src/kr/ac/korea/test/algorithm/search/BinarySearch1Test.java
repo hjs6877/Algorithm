@@ -1,4 +1,4 @@
-package kr.ac.korea.test.search;
+package kr.ac.korea.test.algorithm.search;
 
 import static org.junit.Assert.*;
 import kr.ac.korea.algorithm.search.BinarySearch1;
