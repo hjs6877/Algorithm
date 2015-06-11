@@ -1,7 +1,7 @@
 package kr.ac.korea.test.search;
 
 import static org.junit.Assert.*;
-import kr.ac.korea.search.BinarySearch1;
+import kr.ac.korea.algorithm.search.BinarySearch1;
 
 import org.junit.Test;
 

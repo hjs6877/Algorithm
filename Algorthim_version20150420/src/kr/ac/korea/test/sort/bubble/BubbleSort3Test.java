@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import java.util.Arrays;
 
-import kr.ac.korea.sort.bubble.BubbleSort3;
+import kr.ac.korea.algorithm.sort.bubble.BubbleSort3;
 
 import org.junit.Test;
 

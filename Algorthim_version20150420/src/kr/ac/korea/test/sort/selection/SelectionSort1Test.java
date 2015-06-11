@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import java.util.Arrays;
 
-import kr.ac.korea.sort.selection.SelectionSort1;
+import kr.ac.korea.algorithm.sort.selection.SelectionSort1;
 
 import org.junit.BeforeClass;
 import org.junit.Test;

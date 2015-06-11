@@ -1,4 +1,4 @@
-package kr.ac.korea.search;
+package kr.ac.korea.algorithm.search;
 
 public class BinarySearch1 {
 	private int[] A;

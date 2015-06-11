@@ -1,4 +1,4 @@
-package kr.ac.korea.sort.bubble;
+package kr.ac.korea.algorithm.sort.bubble;
 
 public class BubbleSort3 {
 	private int[] A;

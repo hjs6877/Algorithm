@@ -2,7 +2,7 @@ package kr.ac.korea.test.sort.bubble;
 
 import java.util.Arrays;
 
-import kr.ac.korea.sort.bubble.BubbleSort2;
+import kr.ac.korea.algorithm.sort.bubble.BubbleSort2;
 
 import org.junit.BeforeClass;
 import org.junit.Test;

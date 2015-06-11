@@ -1,4 +1,4 @@
-package kr.ac.korea.sort.insertion;
+package kr.ac.korea.algorithm.sort.insertion;
 
 public class InsertionSort3 {
 	private int[] num;

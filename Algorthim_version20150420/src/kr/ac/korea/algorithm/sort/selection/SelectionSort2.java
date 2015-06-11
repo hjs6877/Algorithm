@@ -1,4 +1,4 @@
-package kr.ac.korea.sort.selection;
+package kr.ac.korea.algorithm.sort.selection;
 
 public class SelectionSort2 {
 	private int[] num;
