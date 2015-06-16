@@ -1,4 +1,4 @@
-package kr.ac.korea.design.factorymethod;
+package kr.ac.korea.designpattern.factorymethod;
 
 public class DatabaseFactoryImpl implements DatabaseFactory {
 	private Database db;
