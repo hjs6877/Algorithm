@@ -1,4 +1,4 @@
-package kr.ac.korea.algorithm.string;
+package kr.ac.korea.topcoder.easy;
 
 /**
  * 75 point obtained.

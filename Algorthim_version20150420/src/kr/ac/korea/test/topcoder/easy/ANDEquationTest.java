@@ -1,7 +1,7 @@
 package kr.ac.korea.test.topcoder.easy;
 
 import static org.junit.Assert.*;
-import kr.ac.korea.algorithm.string.ANDEquation;
+import kr.ac.korea.topcoder.easy.ANDEquation;
 
 import org.junit.Test;
 
