@@ -6,29 +6,22 @@ public class Encrypt {
 	public static void main(String[] args){
 		Scanner scanner1 = new Scanner(System.in);
 		int count = scanner1.nextInt();
+		char[] ch = new char[100];
 		
 		for(int i=0; i < count; i++){
-			Scanner scanner2 = new Scanner(System.in);
-			String str = scanner2.nextLine();
+			String str = scanner1.next();
+			ch = str.toCharArray();
 			
-			if(str.length() <= 100){
-				StringBuffer sb = new StringBuffer();
-				
-				for(int j=0; j < str.length(); j++){
-					if(j % 2 == 0){
-						sb.append(str.charAt(j));
-					}
-				}
-				
-				for(int j=0; j < str.length(); j++){
-					if(j % 2 != 0){
-						sb.append(str.charAt(j));
-					}
-				}
-				
-				System.out.println(sb.toString());
+			for(int j=0; j < ch.length; j+=2){
+				System.out.print(ch[j]);
 			}
 			
+			for(int j=1; j < ch.length; j+=2){
+				System.out.print(ch[j]);
+			}
+			
+			System.out.println();
 		}
 	}
 }
+
