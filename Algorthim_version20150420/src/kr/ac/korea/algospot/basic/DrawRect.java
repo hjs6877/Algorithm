@@ -1,4 +1,4 @@
-package kr.ac.korea.algospot.lowlevel;
+package kr.ac.korea.algospot.basic;
 
 import java.util.Scanner;
 
